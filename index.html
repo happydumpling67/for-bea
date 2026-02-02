@@ -3,65 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>Can I be your Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
+      margin: 0;
       height: 100vh;
+      background: #0a1f44; /* navy blue */
+      color: #ffffff;
+      font-family: "Georgia", serif; /* more classic, less modern */
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
       text-align: center;
-
-      /* 🌸 Floral background */
-      background-image: url("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
-      background-size: cover;
-      background-position: center;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
-    .card {
-      background: #0a1f44; /* navy blue */
-      color: white;
-      padding: 35px;
-      border-radius: 18px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-      max-width: 320px;
-      backdrop-filter: blur(2px);
+    h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 10px;
     }
 
     h1 span {
       color: #ffd6e0;
     }
 
+    p {
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     button {
-      margin: 12px;
-      padding: 12px 26px;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      border: 2px solid #ffffff;
+      background: transparent;
+      color: white;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
+      min-width: 120px;
     }
 
     .yes {
       background: #ff4d6d;
-      color: white;
+      border-color: #ff4d6d;
     }
 
     .no {
-      background: #b0b7c3;
-      color: #0a1f44;
+      background: transparent;
+    }
+
+    @media (max-width: 480px) {
+      button {
+        width: 100%;
+        max-width: 260px;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>Hey <span id="name">BEA</span> 💖</h1>
+  <h1>Hey <span>BEA</span> 💖</h1>
   <p id="subtext">Can I be your Valentine?</p>
 
-  <button class="yes" id="yesBtn" onclick="yesClicked()">Yes </button>
-  <button class="no" id="noBtn" onclick="noClicked()">No </button>
-</div>
+  <div class="buttons">
+    <button class="yes" id="yesBtn" onclick="yesClicked()">Yes</button>
+    <button class="no" id="noBtn" onclick="noClicked()">No</button>
+  </div>
 
 <script>
   let noCount = 0;
@@ -97,9 +114,9 @@
   }
 
   function yesClicked() {
-    document.querySelector(".card").innerHTML = `
+    document.body.innerHTML = `
       <h1>YAY!! :3</h1>
-      <p>You just made my day 🥹</p>
+      <p>You just made my day</p>
       <p>Happy Valentine’s 💐</p>
     `;
   }
