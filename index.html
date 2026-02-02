@@ -2,18 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Can I be your Valentine?</title>
+  <title>303 Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: #0a1f44; /* navy blue */
-      color: #ffffff;
-      font-family: "Georgia", serif; /* more classic, less modern */
+      background: #0a1f44;
+      color: white;
+      font-family: Georgia, serif;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -21,36 +20,34 @@
       box-sizing: border-box;
     }
 
-    h1 {
-      font-size: clamp(2rem, 6vw, 3rem);
-      margin-bottom: 10px;
+    .page {
+      display: none;
+      max-width: 700px;
+      width: 100%;
     }
 
-    h1 span {
-      color: #ffd6e0;
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 15px;
     }
 
     p {
       font-size: clamp(1.1rem, 4vw, 1.4rem);
-      margin-bottom: 30px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+      line-height: 1.6;
     }
 
     button {
-      padding: 16px 36px;
+      margin-top: 30px;
+      padding: 14px 32px;
       font-size: 1.1rem;
-      border: 2px solid #ffffff;
+      border: 2px solid white;
       background: transparent;
       color: white;
       cursor: pointer;
-      transition: transform 0.3s ease;
-      min-width: 120px;
     }
 
     .yes {
@@ -58,29 +55,88 @@
       border-color: #ff4d6d;
     }
 
-    .no {
-      background: transparent;
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
     }
 
-    @media (max-width: 480px) {
-      button {
-        width: 100%;
-        max-width: 260px;
-      }
+    .letter {
+      text-align: left;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
 
-  <h1>Hey <span>BEA</span> 💖</h1>
+<!-- PAGE 1: FAKE ERROR -->
+<div class="page active" id="errorPage">
+  <h1>303 — Page Not Found</h1>
+  <p>
+    The page you are looking for doesn’t exist.<br>
+    Try refreshing the page.
+  </p>
+  <button onclick="goToValentine()">Refresh</button>
+</div>
+
+<!-- PAGE 2: VALENTINE -->
+<div class="page" id="valentinePage">
+  <h1>Hey <span style="color:#ffd6e0;">Bea</span> 💖</h1>
   <p id="subtext">Can I be your Valentine?</p>
 
   <div class="buttons">
     <button class="yes" id="yesBtn" onclick="yesClicked()">Yes</button>
-    <button class="no" id="noBtn" onclick="noClicked()">No</button>
+    <button id="noBtn" onclick="noClicked()">No</button>
   </div>
+</div>
+
+<!-- PAGE 3: YAY -->
+<div class="page" id="yayPage">
+  <h1>YAY!! :3</h1>
+  <p>You just made my day.</p>
+  <p>Happy Valentine’s 💐</p>
+  <button onclick="goToLetter()">Continue</button>
+</div>
+
+<!-- PAGE 4: LETTER -->
+<div class="page" id="letterPage">
+  <h1>To my dearest, Bea</h1>
+  <div class="letter">
+Hi Bea,
+
+I've been smiling like an idiot ever since we started dating. This is a way to show how much you mean to me.
+
+Thank you for choosing me. Out of everyone, you picked me, and that’s something I don’t take lightly at all. You said yes, and that simple word made my whole day.
+
+I just want you to know how special you make me feel. I really appreciate you, not just because of these major events of our life, not just because of Valentine’s, but because of the way you are. The way you talk, the way you laugh, the little things you say that stay in my head longer than they should.
+
+Being able to spend time with you, talk to you, and just exist in the same space as you is something I genuinely value.
+
+I'm glad it's you. I'm glad I get to ask you. I'm glad you said yes.
+
+So yes, thank you—for your time, your presence, your energy, and for making this Valentine’s something I’ll actually remember. I hope I get to make you feel just as appreciated, because you really deserve everything.
+
+From,  
+Nathan
+  </div>
+</div>
 
 <script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function goToValentine() {
+    showPage('valentinePage');
+  }
+
+  function goToLetter() {
+    showPage('letterPage');
+  }
+
   let noCount = 0;
   let yesSize = 1;
   let noSize = 1;
@@ -95,32 +151,11 @@
 
   function noClicked() {
     noCount++;
-
     document.getElementById("subtext").innerText =
       messages[Math.min(noCount - 1, messages.length - 1)];
 
     yesSize += 0.25;
     noSize -= 0.2;
 
-    document.getElementById("yesBtn").style.transform =
-      `scale(${yesSize})`;
-
-    document.getElementById("noBtn").style.transform =
-      `scale(${Math.max(noSize, 0.15)})`;
-
-    if (noSize <= 0.15) {
-      document.getElementById("noBtn").style.display = "none";
-    }
-  }
-
-  function yesClicked() {
-    document.body.innerHTML = `
-      <h1>YAY!! :3</h1>
-      <p>You just made my day</p>
-      <p>Happy Valentine’s 💐</p>
-    `;
-  }
-</script>
-
-</body>
-</html>
+    document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
+    document.getElementById("noBtn").style.transform = `scale(${Math.max(noSize, 0.15)})`;
