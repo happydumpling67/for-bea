@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>303 Not Found</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
@@ -48,6 +48,7 @@
       background: transparent;
       color: white;
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
 
     .yes {
@@ -71,17 +72,17 @@
 </head>
 <body>
 
-<!-- PAGE 1: FAKE ERROR -->
+<!-- PAGE 1 -->
 <div class="page active" id="errorPage">
   <h1>303 — Page Not Found</h1>
   <p>
-    The page you are looking for doesn’t exist.<br>
+    The page you are looking for doesn’t exist.<br />
     Try refreshing the page.
   </p>
-  <button type="button" onclick="goToValentine()">Refresh.</button>
+  <button onclick="goToValentine()">Refresh</button>
 </div>
 
-<!-- PAGE 2: VALENTINE -->
+<!-- PAGE 2 -->
 <div class="page" id="valentinePage">
   <h1>Hey <span style="color:#ffd6e0;">Bea</span> 💖</h1>
   <p id="subtext">Can I be your Valentine?</p>
@@ -92,7 +93,7 @@
   </div>
 </div>
 
-<!-- PAGE 3: YAY -->
+<!-- PAGE 3 -->
 <div class="page" id="yayPage">
   <h1>YAY!! :3</h1>
   <p>You just made my day.</p>
@@ -100,7 +101,7 @@
   <button onclick="goToLetter()">Continue</button>
 </div>
 
-<!-- PAGE 4: LETTER -->
+<!-- PAGE 4 -->
 <div class="page" id="letterPage">
   <h1>To my dearest, Bea</h1>
   <div class="letter">
@@ -110,13 +111,13 @@ I've been smiling like an idiot ever since we started dating. This is a way to s
 
 Thank you for choosing me. Out of everyone, you picked me, and that’s something I don’t take lightly at all. You said yes, and that simple word made my whole day.
 
-I just want you to know how special you make me feel. I really appreciate you, not just because of these major events of our life, not just because of Valentine’s, but because of the way you are. The way you talk, the way you laugh, the little things you say that stay in my head longer than they should.
+I just want you to know how special you make me feel. I really appreciate you — not just because of big moments like Valentine’s, but because of the way you are. The way you talk, the way you laugh, the little things you say that stay in my head longer than they should.
 
 Being able to spend time with you, talk to you, and just exist in the same space as you is something I genuinely value.
 
 I'm glad it's you. I'm glad I get to ask you. I'm glad you said yes.
 
-So yes, thank you—for your time, your presence, your energy, and for making this Valentine’s something I’ll actually remember. I hope I get to make you feel just as appreciated, because you really deserve everything.
+So yes, thank you — for your time, your presence, your energy, and for making this Valentine’s something I’ll actually remember.
 
 From,  
 Nathan
@@ -125,16 +126,20 @@ Nathan
 
 <script>
   function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
   }
 
   function goToValentine() {
-    showPage('valentinePage');
+    showPage("valentinePage");
   }
 
   function goToLetter() {
-    showPage('letterPage');
+    showPage("letterPage");
+  }
+
+  function yesClicked() {
+    showPage("yayPage");
   }
 
   let noCount = 0;
@@ -151,6 +156,7 @@ Nathan
 
   function noClicked() {
     noCount++;
+
     document.getElementById("subtext").innerText =
       messages[Math.min(noCount - 1, messages.length - 1)];
 
@@ -159,3 +165,8 @@ Nathan
 
     document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
     document.getElementById("noBtn").style.transform = `scale(${Math.max(noSize, 0.15)})`;
+  }
+</script>
+
+</body>
+</html>
