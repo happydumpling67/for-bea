@@ -2,46 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Will You Be My Valentine?</title>
+  <title>Be My Valentine 💘</title>
   <style>
     body {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: pink;
       font-family: Arial, sans-serif;
       text-align: center;
+
+      /* 🌸 Floral background */
+      background-image: url("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
+      background-size: cover;
+      background-position: center;
     }
+
     .card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      background: #0a1f44; /* navy blue */
+      color: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      max-width: 320px;
+      backdrop-filter: blur(2px);
     }
+
+    h1 span {
+      color: #ffd6e0;
+    }
+
     button {
-      margin: 10px;
-      padding: 10px 20px;
+      margin: 12px;
+      padding: 12px 26px;
       font-size: 16px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
+
     .yes {
       background: #ff4d6d;
       color: white;
     }
+
     .no {
-      background: #ccc;
+      background: #b0b7c3;
+      color: #0a1f44;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Will you be my Valentine? 💖</h1>
-    <p>I hope you say yes 👉👈</p>
-    <button class="yes" onclick="alert('YAY!! 💘')">Yes 💕</button>
-    <button class="no" onclick="alert('Try again 😌')">No 🙄</button>
-  </div>
+
+<div class="card">
+  <h1>Hey <span id="name">HER NAME</span> 💖</h1>
+  <p id="subtext">Will you be my Valentine?</p>
+
+  <button class="yes" id="yesBtn" onclick="yesClicked()">Yes 💕</button>
+  <button class="no" id="noBtn" onclick="noClicked()">No 🙄</button>
+</div>
+
+<script>
+  let noCount = 0;
+  let yesSize = 1;
+  let noSize = 1;
+
+  const messages = [
+    "Are you sure? 😳",
+    "Like… really sure?",
+    "Think again 🥺",
+    "You’re breaking my heart",
+    "Last chance 😭"
+  ];
+
+  function noClicked() {
+    noCount++;
+
+    document.getElementById("subtext").innerText =
+      messages[Math.min(noCount - 1, messages.length - 1)];
+
+    yesSize += 0.25;
+    noSize -= 0.2;
+
+    document.getElementById("yesBtn").style.transform =
+      `scale(${yesSize})`;
+
+    document.getElementById("noBtn").style.transform =
+      `scale(${Math.max(noSize, 0.15)})`;
+
+    if (noSize <= 0.15) {
+      document.getElementById("noBtn").style.display = "none";
+    }
+  }
+
+  function yesClicked() {
+    document.querySelector(".card").innerHTML = `
+      <h1>YAY!! 💘</h1>
+      <p>You just made my day 🥹</p>
+      <p>Happy Valentine’s 💐</p>
+    `;
+  }
+</script>
+
 </body>
 </html>
